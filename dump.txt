@@ -1,0 +1,32 @@
+// @Summary Get Customer all Orders
+// @Tags Customer
+// @Accept x-www-form-urlencoded
+// @Produce json
+// @param id formData int true "customer id"
+// @param total formData int true "customer total"
+// @Success 200 {object} models.Customer
+// @Router /customer-all-product [post]
+func GetCustomerPercobaan(c *gin.Context) {
+	// Mengambil data dari form
+	idStr := c.DefaultPostForm("id", "0")
+	totalStr := c.DefaultPostForm("total", "0")
+
+	// Mengonversi ke integer
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer id"})
+		return
+	}
+
+	total, err := strconv.Atoi(totalStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid customer total"})
+		return
+	}
+
+	// Menampilkan data yang diterima
+	fmt.Println("Customer ID:", id)
+	fmt.Println("Customer", total)
+}
+
+login api example

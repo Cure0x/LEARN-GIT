@@ -1,0 +1,206 @@
+basePath: /api/v1
+definitions:
+  models.Customer:
+    properties:
+      birth_date:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      money_spent:
+        type: integer
+    type: object
+  models.Order:
+    properties:
+      customer_id:
+        type: integer
+      order_total:
+        type: integer
+      product_id:
+        type: integer
+      seller_id:
+        type: integer
+    type: object
+  models.Product:
+    properties:
+      category:
+        type: string
+      price:
+        type: number
+    type: object
+  models.Seller:
+    properties:
+      birth_date:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Simple CRUD API with Swagger documentation.
+  title: Go CRUD API
+  version: "1.0"
+paths:
+  /customer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Customer data
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.Customer'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Customer'
+      summary: Create a new Customer
+      tags:
+      - Customer
+  /customer-all-product/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: customer id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Customer'
+      summary: Get Customer all Orders
+      tags:
+      - Customer
+  /customer-all/:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Customer'
+            type: array
+      summary: Get All Customer
+      tags:
+      - Customer
+  /order:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: order data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Create a new Order
+      tags:
+      - Order
+  /product:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Product'
+      summary: Create a new product
+      tags:
+      - Product
+  /product-all/:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+      summary: Get All products
+      tags:
+      - Product
+  /product-bycategory/{name}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+      summary: Get product by category
+      tags:
+      - Product
+  /seller:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Seller data
+        in: body
+        name: seller
+        required: true
+        schema:
+          $ref: '#/definitions/models.Seller'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Seller'
+      summary: Create a new Seller
+      tags:
+      - Seller
+swagger: "2.0"
