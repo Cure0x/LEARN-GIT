@@ -19,7 +19,9 @@ func RegisterRoutes(router *gin.Engine) {
 
 		//Product
 		api.POST("/product", handlers.CreateProduct)
-		api.GET("/product-bycategory/:name", handlers.GetProductByCategory)
+		api.POST("/product-batch", handlers.CreateBatchProduct)
+		api.GET("/product-bycategory/:category", handlers.GetProductByCategory)
+		api.GET("/product-byname/:name", handlers.GetProductByName)
 		api.GET("/product-all/", handlers.GetAllProduct)
 
 		//Order

@@ -195,7 +195,46 @@ const docTemplate = `{
                 }
             }
         },
-        "/product-bycategory/{name}": {
+        "/product-batch": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new Batch Product",
+                "parameters": [
+                    {
+                        "description": "Product data",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product-bycategory/{category}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -211,6 +250,40 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Category name",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product-byname/{name}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product name",
                         "name": "name",
                         "in": "path",
                         "required": true
@@ -267,6 +340,9 @@ const docTemplate = `{
         "models.Customer": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string"
+                },
                 "birth_date": {
                     "type": "string"
                 },
@@ -275,9 +351,6 @@ const docTemplate = `{
                 },
                 "last_name": {
                     "type": "string"
-                },
-                "money_spent": {
-                    "type": "integer"
                 }
             }
         },
@@ -304,6 +377,9 @@ const docTemplate = `{
                 "category": {
                     "type": "string"
                 },
+                "name": {
+                    "type": "string"
+                },
                 "price": {
                     "type": "number"
                 }
@@ -315,10 +391,7 @@ const docTemplate = `{
                 "birth_date": {
                     "type": "string"
                 },
-                "first_name": {
-                    "type": "string"
-                },
-                "last_name": {
+                "name": {
                     "type": "string"
                 }
             }
