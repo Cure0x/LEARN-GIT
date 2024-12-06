@@ -189,7 +189,46 @@
                 }
             }
         },
-        "/product-bycategory/{name}": {
+        "/product-batch": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new Batch Product",
+                "parameters": [
+                    {
+                        "description": "Product data",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product-bycategory/{category}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -205,6 +244,40 @@
                     {
                         "type": "string",
                         "description": "Category name",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product-byname/{name}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product name",
                         "name": "name",
                         "in": "path",
                         "required": true
@@ -261,6 +334,9 @@
         "models.Customer": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string"
+                },
                 "birth_date": {
                     "type": "string"
                 },
@@ -269,9 +345,6 @@
                 },
                 "last_name": {
                     "type": "string"
-                },
-                "money_spent": {
-                    "type": "integer"
                 }
             }
         },
@@ -298,6 +371,9 @@
                 "category": {
                     "type": "string"
                 },
+                "name": {
+                    "type": "string"
+                },
                 "price": {
                     "type": "number"
                 }
@@ -309,10 +385,7 @@
                 "birth_date": {
                     "type": "string"
                 },
-                "first_name": {
-                    "type": "string"
-                },
-                "last_name": {
+                "name": {
                     "type": "string"
                 }
             }

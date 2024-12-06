@@ -8,6 +8,7 @@ type Customer struct {
 	FirstName  string  `json:"first_name"`
 	LastName   string  `json:"last_name"`
 	BirthDate  string  `json:"birth_date"`
-	MoneySpent int64   `json:"money_spent"`
+	Address    string  `json:"address"`
+	MoneySpent int64   `json:"money_spent" swaggerignore:"true"`
 	Order      []Order `gorm:"foreignKey:CustomerId" swaggerignore:"true"`
 }

@@ -2,14 +2,14 @@ basePath: /api/v1
 definitions:
   models.Customer:
     properties:
+      address:
+        type: string
       birth_date:
         type: string
       first_name:
         type: string
       last_name:
         type: string
-      money_spent:
-        type: integer
     type: object
   models.Order:
     properties:
@@ -26,6 +26,8 @@ definitions:
     properties:
       category:
         type: string
+      name:
+        type: string
       price:
         type: number
     type: object
@@ -33,9 +35,7 @@ definitions:
     properties:
       birth_date:
         type: string
-      first_name:
-        type: string
-      last_name:
+      name:
         type: string
     type: object
 host: localhost:8080
@@ -160,12 +160,59 @@ paths:
       summary: Get All products
       tags:
       - Product
-  /product-bycategory/{name}:
+  /product-batch:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.Product'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+      summary: Create a new Batch Product
+      tags:
+      - Product
+  /product-bycategory/{category}:
     get:
       consumes:
       - application/json
       parameters:
       - description: Category name
+        in: path
+        name: category
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+      summary: Get product by category
+      tags:
+      - Product
+  /product-byname/{name}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product name
         in: path
         name: name
         required: true
@@ -179,7 +226,7 @@ paths:
             items:
               $ref: '#/definitions/models.Product'
             type: array
-      summary: Get product by category
+      summary: Get product by name
       tags:
       - Product
   /seller:
